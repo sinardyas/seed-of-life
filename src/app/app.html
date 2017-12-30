@@ -1,0 +1,15 @@
+<ion-menu type="overlay" [content]="mycontent" [class]="selectedTheme">
+  <ion-header>
+    <ion-toolbar color="navbar" class="customHeaderMenu">
+      <img height="150px" width="150px" src="assets/icon/sol.png">
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-list class="customListMenu">
+      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
+          <ion-icon name="{{p.icon}}" item-start></ion-icon>{{p.title}}
+      </button>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+<ion-nav #mycontent [root]="rootPage" [class]="selectedTheme"></ion-nav>

@@ -1,0 +1,36 @@
+<!--
+  Generated template for the HistoryPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="navbar">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>History</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-list>
+      <ion-item-sliding *ngFor="let rc of reflectionProvider._readed">
+        <button ion-item (click)="openCardDetail(rc)">
+            <span class="btn-box" item-start><b>{{ rc.date | dateFormat }}</b></span>
+            {{ rc.title }}
+        </button>
+        <!-- <ion-item-options side="right">
+          <button ion-button color="danger" (click)="reflectionProvider.removeRefFromFavorites(rc)">
+            <ion-icon name="trash"></ion-icon>
+            Delete
+          </button>
+        </ion-item-options> -->
+      </ion-item-sliding>
+    </ion-list>
+    <h2 *ngIf="reflectionProvider.getReadedRef() === null">No Data Found!</h2>
+</ion-content>
+  

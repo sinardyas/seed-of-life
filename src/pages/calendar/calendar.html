@@ -1,0 +1,64 @@
+<!--
+  Generated template for the CalendarPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-toolbar color="navbar">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Calendar</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  <div class="week">
+    <ion-grid class="center-items">
+      <ion-row align-items-center>
+        <button ion-button clear class="btn-week" (click)="btnPrev()">
+            <ion-icon name="arrow-dropleft"> </ion-icon>
+        </button>
+        {{ reflectionProvider.getMonth(this.month) }}
+        <button ion-button clear ion-start class="btn-week" item-end (click)="btnNext()"> 
+            <ion-icon name="arrow-dropright"> </ion-icon>
+        </button>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <!-- <h3 *ngIf="allRef.length">No Data Found!</h3> -->
+
+  <ion-list>
+    <ion-row *ngFor="let rc of allRef">
+      <ion-col col-2>  
+        <button class="btn-box"><b>{{ rc.date | dateFormat }}</b></button>
+      </ion-col>
+      
+      <ion-col col-6>
+        <button ion-item (click)="openCardDetail(rc)" text-wrap>
+            {{ rc.title }}
+        </button>
+      </ion-col>
+        
+      <ion-col col-2 >
+        <button ion-button class="btn-circle" *ngIf="reflectionProvider.checkRead(rc)">
+          <ion-icon name="eye"> </ion-icon>
+        </button>
+      </ion-col>
+
+      <ion-col col-2>
+        <button ion-button class="btn-circle" (click)="fav(rc)" *ngIf="!reflectionProvider.checkFav(rc)">
+          <ion-icon name="heart-outline"> </ion-icon>
+        </button>
+        <button ion-button class="btn-circle" (click)="unfav(rc)" *ngIf="reflectionProvider.checkFav(rc)">
+          <ion-icon name="heart"> </ion-icon>
+        </button>
+      </ion-col>
+
+    </ion-row>
+  </ion-list>
+  <div class="week">
+  </div>
+</ion-content>

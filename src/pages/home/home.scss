@@ -1,0 +1,72 @@
+ page-home {
+    
+    .arial {
+        font-family: "Arial";
+    }
+    .timesnew {
+        font-family: "Times New Roman";
+    }
+    .calibri {
+        font-family: "Calibri";
+    }
+    .roboto {
+        font-family: "Roboto";
+    }
+
+    .whiteverse {
+        background-color: rgb(169, 169, 169);
+    }
+    .purpleverse {
+        background-color: rgb(232, 221, 231);
+    }
+    .greyverse {
+        background-color: rgb(154, 154, 154);
+    }
+    .tanverse {
+        background-color: rgb(255, 217, 168);
+    }
+    .defaultverse {
+        background-color: gold;
+    }
+
+    .white {
+        background-color: rgb(255, 255, 255);
+        color: #000;
+    }
+    .purple {
+        background-color: rgb(216,191,216);
+        color: #000;
+    }
+    .grey {
+        background-color: rgb(128,128,128);
+        color: rgb(255, 255, 255);
+    }
+    .tan {
+        background-color: rgb(210,180,140);
+        color: #000;
+    }
+    .default {
+        background-color: rgb(255, 255, 255);
+        color: #000;
+    }
+
+    .smallverse {
+        font-size: 7px;
+    }
+    .mediumverse {
+        font-size: 14px;
+    }
+    .bigverse {
+        font-size: 27px;
+    }
+
+    .small {
+        font-size: 10px;
+    }
+    .medium {
+        font-size: 17px;
+    }
+    .big {
+        font-size: 30px;
+    }
+}

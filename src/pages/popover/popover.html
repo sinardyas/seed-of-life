@@ -1,0 +1,10 @@
+<ion-list>
+    <!-- <button ion-item (click)="this.reflectionProdiver.addRefToFavorites(this.rc)" *ngIf="!checkFav()"><ion-icon name="heart"></ion-icon> Like</button> -->
+    <button ion-item (click)="like()" *ngIf="!checkFav()"><ion-icon name="heart"></ion-icon> Like</button>
+    <button ion-item (click)="this.reflectionProdiver.removeRefFromFavorites(this.rc)" *ngIf="checkFav()"><ion-icon name="heart-outline"></ion-icon> Unlike</button>
+    <button ion-item (click)="copyToClipboard()"><ion-icon name="copy"></ion-icon> Copy to Clipboard</button>
+    <!-- <button ion-item (click)="openNotesPage(this.rc)"><ion-icon name="create"></ion-icon> Add Notes</button> -->
+    <button ion-item (click)="this.reflectionProdiver.markAsRead(this.rc)" *ngIf="!this.reflectionProdiver.checkRead(this.rc)"><ion-icon name="eye"></ion-icon> Mark as Read</button>
+    <button ion-item (click)="this.reflectionProdiver.markAsUnread(this.rc)" *ngIf="this.reflectionProdiver.checkRead(this.rc)"><ion-icon name="eye-off"></ion-icon> Mark as Unread</button>  
+    <button ion-item (click)="share()"><ion-icon name="share"></ion-icon> Share this Reflection</button> 
+</ion-list>

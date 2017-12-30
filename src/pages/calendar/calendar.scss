@@ -1,0 +1,41 @@
+page-calendar {
+    .btn-circle {
+        width: 30px;
+        height: 30px;
+        text-align: center;
+        padding: 6px 0;
+        font-size: 12px;
+        line-height: 1.428571429;
+        border-radius: 15px;
+        background-color: rgb(76,75,80);
+        margin-top: 15px;
+      }
+
+      .btn-box {
+        width: 40px;
+        height: 40px;
+        text-align: center;
+        margin: 15px 0 0 10px;
+        padding: 6px 0;
+        font-size: 18px;
+        line-height: 1.428571429;
+        border-radius: 0px;
+        background-color: rgb(76,75,80);
+        color: rgb(255, 165, 0);
+      }
+
+      .week {
+        background-color: rgb(255, 165, 0);
+        height: 60px;
+      }
+
+      .btn-week {
+        margin: 8px;
+        font-size: 20px;
+        color: 	rgb(128,0,0);
+      }
+
+      .center-items {
+        align-items: center;
+      }
+}

@@ -1,0 +1,35 @@
+<ion-header>
+   <ion-toolbar color="navbar">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      Today Seed
+    </ion-title>
+    <ion-buttons start>
+      <button ion-button (click)="presentPopover($event, rc)">
+        <ion-icon name="more"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [ngClass]="settingProvider.setMainBgColor(backgroundColor)">
+  <div *ngFor="let item of rc " [ngClass]="settingProvider.setFontStyle(fontStyle)">
+    <h1 text-center text-uppercase>{{ item.title }}</h1>
+      <div [ngClass]="settingProvider.setVerseBgColor(backgroundColor)">
+        <br>
+          <p text-center padding [ngClass]="settingProvider.setVerseFontSize(fontSize)">
+            {{ item.versebody }}
+          <br><br>
+          <b>{{ item.verse }}</b>
+          </p>
+        <br>
+      </div>
+      <br>
+      <p text-justify padding [ngClass]="settingProvider.setBodyFontSize(fontSize)" [innerHTML]="item.body"> 
+      </p>
+  </div>
+</ion-content>
+
+
