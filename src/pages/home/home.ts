@@ -23,6 +23,14 @@ export class HomePage implements OnInit {
   rc: Reflections[];
   date = new Date().toISOString().substring(0,10);
   test = new Date();
+  temp = new Date();
+  day = 0;
+  month = 0;
+  year = 0;
+  days: string;
+  months: string;
+  years: string;
+  dday: string;
 
 
   constructor(
@@ -35,10 +43,31 @@ export class HomePage implements OnInit {
     public loadingCtrl: LoadingController,
     public settingProvider: SettingProvider
   ) {
-    console.log(this.date);
-    console.log(this.test.getDate() + "-" + this.test.getMonth() + '-' + this.test.getFullYear());
-    this.today = this.test.getMonth()+1 + "-" + this.test.getDate() + "-"  + this.test.getFullYear();
-    console.log("today date: " + this.today);
+    // console.log(this.date);
+    // console.log(this.test.getDate() + "-" + this.test.getMonth() + '-' + this.test.getFullYear());
+    // this.today = this.test.getMonth()+1 + "-" + this.test.getDate() + "-"  + this.test.getFullYear();
+
+    //this.temp.setDate(1);
+    //this.temp.setMonth(1);
+    //this.temp.setFullYear(2018);
+    this.temp = new Date();
+
+    this.day = this.temp.getDate();
+    this.month = this.temp.getMonth()+1;
+    this.year = this.temp.getFullYear();
+    if(this.day < 10) {
+      this.days = '0'+this.day;
+    } else {
+      this.days = this.day.toString();
+    }
+    if(this.month < 10) {
+      this.months = '0'+this.month;
+    } else {
+      this.months = this.month.toString();
+    }
+    this.years = this.year.toString();
+    this.dday = this.months + '-' + this.days + '-' + this.years;
+    console.log(this.dday);
   }
 
   ngOnInit() { 
@@ -50,7 +79,7 @@ export class HomePage implements OnInit {
     this.database.list('/reflection', {
         query: {
         orderByChild: 'date',
-        equalTo: this.today,
+        equalTo: this.dday,
         preserveSnapshot: true
       }
     }).subscribe(

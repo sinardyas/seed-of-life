@@ -2,6 +2,17 @@ page-give {
     .content-give {
         background-color: gold;
         padding: 10px;
-        
+    }
+
+    img {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        height: 150px; 
+        width: 150px;
+    }
+
+    .footer {
+        align-items: center;
     }
 }

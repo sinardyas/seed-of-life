@@ -47,25 +47,25 @@ export class MyApp {
         { title: 'Give', icon: 'ribbon', component: 'GivePage' }
       ];
 
-      this.storage.get('reminder').then((val) => {
-        if(val) {
-          console.log("app component " + val);
-        } else {
-          console.log("zonk");
+      // this.storage.get('reminder').then((val) => {
+      //   if(val) {
+      //     console.log("app component " + val);
+      //   } else {
+      //     console.log("zonk");
 
-          var date = new Date();
-          date.setDate(date.getDate());
-          date.setHours(12);
-          date.setMinutes(0);
+      //     var date = new Date();
+      //     date.setDate(date.getDate());
+      //     date.setHours(12);
+      //     date.setMinutes(0);
 
-          this.localNotification.schedule({
-            title: 'Seed of Life',
-            text: 'dont forget to take time and read your reflection :)',
-            at: date,
-            every: 'day'
-          });
-        }
-      });
+      //     this.localNotification.schedule({
+      //       title: 'Seed of Life',
+      //       text: 'dont forget to take time and read your reflection :)',
+      //       at: date,
+      //       every: 'day'
+      //     });
+      //   }
+      // });
 
   }
 

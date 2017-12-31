@@ -35,8 +35,13 @@ export class CalendarPage implements OnInit {
       this._liked = data;
     });
 
+    //this.date.setMonth(0);
     this.i = this.date.getMonth()+1;
-    this.month = this.i.toString();
+    if(this.i < 10) {
+      this.month = '0' + this.i;
+    } else {
+      this.month = this.i.toString();
+    }
   }
 
   ngOnInit() {    
