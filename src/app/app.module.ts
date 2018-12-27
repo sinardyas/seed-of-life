@@ -14,6 +14,7 @@ import { SettingProvider } from '../providers/setting/setting';
 import { ReflectionProvider } from '../providers/reflection/reflection';
 import { NoteProvider } from '../providers/note/note';
 import { LocalNotifications } from '@ionic-native/local-notifications';
+import { BackgroundMode } from '@ionic-native/background-mode';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { LocalNotifications } from '@ionic-native/local-notifications';
     ReflectionProvider,
     NoteProvider,
     SocialSharing,
-    LocalNotifications
+    LocalNotifications,
+    BackgroundMode
   ]
 })
 export class AppModule {}

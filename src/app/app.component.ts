@@ -5,6 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { Storage } from '@ionic/storage';
 import { SettingProvider } from '../providers/setting/setting';
 import { LocalNotifications } from '@ionic-native/local-notifications';
+import { BackgroundMode } from '@ionic-native/background-mode';
 
 @Component({
   templateUrl: 'app.html',
@@ -23,7 +24,8 @@ export class MyApp {
     splashScreen: SplashScreen,
     private settings: SettingProvider,
     public storage: Storage,
-    public localNotification: LocalNotifications
+    public localNotification: LocalNotifications,
+    public backgroundMode: BackgroundMode
   ) {
     
       this.settings.getActiveTheme().subscribe( val => {
@@ -32,9 +34,47 @@ export class MyApp {
       });
       this.settings.getToggle().subscribe( val => this.toggle = val );
 
+      // this.storage.get('reminder').then((val) => {
+      //   if(val) {
+      //     console.log("app component " + val);
+      //   } else {
+      //     console.log("zonk");
+
+      //     var date = new Date();
+      //     date.setDate(date.getDate());
+      //     date.setHours(23);
+      //     date.setMinutes(15);
+
+      //     this.localNotification.schedule({
+      //       title: 'Seed of Life',
+      //       text: 'dont forget to take time and read your reflection :)',
+      //       at: date,
+      //       every: 'day'
+      //     });
+      //   }
+      // });
+
       platform.ready().then(() => {
         statusBar.styleDefault();
         splashScreen.hide();
+
+        this.backgroundMode.on('activate').subscribe(() => {
+          console.log('activated');
+
+          var date = new Date();
+          date.setDate(date.getDate());
+          date.setHours(23);
+          date.setMinutes(25);
+
+          this.localNotification.schedule({
+            title: 'Seed of Life',
+            text: 'dont forget to take time and read your reflection :)',
+            at: date,
+            every: 'day'
+          });
+        });
+
+        this.backgroundMode.enable();
       });
 
       this.pages = [
@@ -47,25 +87,7 @@ export class MyApp {
         { title: 'Give', icon: 'ribbon', component: 'GivePage' }
       ];
 
-      // this.storage.get('reminder').then((val) => {
-      //   if(val) {
-      //     console.log("app component " + val);
-      //   } else {
-      //     console.log("zonk");
-
-      //     var date = new Date();
-      //     date.setDate(date.getDate());
-      //     date.setHours(12);
-      //     date.setMinutes(0);
-
-      //     this.localNotification.schedule({
-      //       title: 'Seed of Life',
-      //       text: 'dont forget to take time and read your reflection :)',
-      //       at: date,
-      //       every: 'day'
-      //     });
-      //   }
-      // });
+      
 
   }
 

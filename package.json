@@ -70,7 +70,8 @@
       "ionic-plugin-keyboard": {},
       "cordova-clipboard": {},
       "cordova-plugin-x-socialsharing": {},
-      "cordova-plugin-local-notification": {}
+      "cordova-plugin-local-notification": {},
+      "cordova-plugin-background-mode": {}
     },
     "platforms": [
       "android"
