@@ -11,7 +11,7 @@ import * as moment from 'moment';
   templateUrl: 'card-detail.html',
 })
 export class CardDetailPage {
-  rc; 
+  rc;
   tabBarElement;
   date;
 
@@ -20,14 +20,15 @@ export class CardDetailPage {
   fontStyle = {}
 
   constructor(
-    public navCtrl: NavController, 
+    public navCtrl: NavController,
     public navParams: NavParams,
     public popoverController: PopoverController,
     private storage: Storage,
-    public settingProvider: SettingProvider    
+    public settingProvider: SettingProvider
   ) {
     this.rc = navParams.data.rc;
-    this.date = moment(this.rc.date).format("MMMM YYYY, DD");
+    const dateValue = this.rc.date.split('-');
+    this.date = moment(new Date(dateValue[2], dateValue[0] - 1, dateValue[1])).format('MMMM YYYY, DD');
   }
 
   ionViewWillEnter() {

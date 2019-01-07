@@ -27,7 +27,7 @@ export class SettingPage {
   selectedTheme: String;
 
   constructor(
-    private storage: Storage, 
+    private storage: Storage,
     private settings: SettingProvider,
     public localNotification: LocalNotifications
   ) {
@@ -87,14 +87,14 @@ export class SettingPage {
     this.localNotification.schedule({
       title: 'Seed of Life',
       text: 'dont forget to take time and read your reflection :)',
-      at: date,
+      trigger: { at: date },
       every: 'day'
     });
   }
 
   ionViewDidLoad(){
     console.log(this.toggle)
-    
+
     this.storage.get('fontsize').then((val) => {
       if(val) {
         this.fontSize = val;
@@ -131,9 +131,9 @@ export class SettingPage {
       this.settings.setActiveTheme('dark-theme');
       this.settings.setToggle(true);
     } else {
-      console.log('toggled else');      
+      console.log('toggled else');
       this.settings.setActiveTheme('');
-      this.settings.setToggle(false);      
+      this.settings.setToggle(false);
     }
   }
 }

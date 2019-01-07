@@ -15,6 +15,7 @@ export class DateFormatPipe implements PipeTransform {
    * Takes a value and makes it lowercase.
    */
   transform(date) {
-    return moment(date).format("DD");
+    const dateArray = date.split('-');
+    return dateArray[1];
   }
 }

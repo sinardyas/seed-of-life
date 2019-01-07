@@ -17,17 +17,17 @@ export class MyApp {
   selectedTheme: String;
   toggle: Boolean;
   color: any;
-  
+
   constructor(
-    platform: Platform, 
-    statusBar: StatusBar, 
+    platform: Platform,
+    statusBar: StatusBar,
     splashScreen: SplashScreen,
     private settings: SettingProvider,
     public storage: Storage,
     public localNotification: LocalNotifications,
     public backgroundMode: BackgroundMode
   ) {
-    
+
       this.settings.getActiveTheme().subscribe( val => {
         this.selectedTheme = val;
         val === 'dark-theme' ? this.color = 'theme' : this.color = '';
@@ -69,7 +69,7 @@ export class MyApp {
           this.localNotification.schedule({
             title: 'Seed of Life',
             text: 'dont forget to take time and read your reflection :)',
-            at: date,
+            trigger: { at: date },
             every: 'day'
           });
         });
@@ -82,12 +82,12 @@ export class MyApp {
         { title: 'Calendar', icon: 'calendar', component: 'CalendarPage' },
         { title: 'Likes', icon: 'heart', component: 'FavoritesPage'},
         // { title: 'Notes', icon: 'create', component: 'NoteslistPage' },
-        { title: 'Setting', icon: 'settings', component: 'SettingPage' }, 
+        { title: 'Setting', icon: 'settings', component: 'SettingPage' },
         { title: 'Contact Us', icon: 'mail', component: 'ContactUsPage' },
         { title: 'Give', icon: 'ribbon', component: 'GivePage' }
       ];
 
-      
+
 
   }
 
