@@ -10,13 +10,11 @@ export class ReflectionServices {
 
     addRefToFavorites(ref: Reflections) {
         this.favoritesRef.push(ref);
-        console.log("services", this.favoritesRef);
     }
 
-    removeRefFromFavorites(ref: Reflections) {        
+    removeRefFromFavorites(ref: Reflections) {
         this.fav = this.favoritesRef.indexOf(ref);
         this.favoritesRef.splice(this.fav, 1);
-        console.log("remove", this.favoritesRef);
     }
 
     getFavoritedRef() {

@@ -34,43 +34,25 @@ export class HomePage implements OnInit {
 
 
   constructor(
-    public menu: MenuController, 
-    public popoverController: PopoverController, 
-    public navCtrl: NavController, 
+    public menu: MenuController,
+    public popoverController: PopoverController,
+    public navCtrl: NavController,
     public navParams: NavParams,
     private database: AngularFireDatabase,
     private storage: Storage,
     public loadingCtrl: LoadingController,
     public settingProvider: SettingProvider
   ) {
-    // console.log(this.date);
-    // console.log(this.test.getDate() + "-" + this.test.getMonth() + '-' + this.test.getFullYear());
-    // this.today = this.test.getMonth()+1 + "-" + this.test.getDate() + "-"  + this.test.getFullYear();
-
-    //this.temp.setDate(1);
-    //this.temp.setMonth(1);
-    //this.temp.setFullYear(2018);
     this.temp = new Date();
 
-    this.day = this.temp.getDate();
-    this.month = this.temp.getMonth()+1;
-    this.year = this.temp.getFullYear();
-    if(this.day < 10) {
-      this.days = '0'+this.day;
-    } else {
-      this.days = this.day.toString();
-    }
-    if(this.month < 10) {
-      this.months = '0'+this.month;
-    } else {
-      this.months = this.month.toString();
-    }
-    this.years = this.year.toString();
-    this.dday = this.months + '-' + this.days + '-' + this.years;
-    console.log(this.dday);
+    const dayValue = `${this.temp.getDate()}`;
+    const monthValue = `${this.temp.getMonth() + 1}`;
+    const yearValue = `${this.temp.getFullYear()}`;
+
+    this.dday = `${monthValue.padStart(2, '0')}-${dayValue.padStart(2, '0')}-${yearValue.padStart(2, '0')}`;
   }
 
-  ngOnInit() { 
+  ngOnInit() {
     let loading = this.loadingCtrl.create({
         spinner: 'dots'
       });
@@ -96,25 +78,13 @@ export class HomePage implements OnInit {
 
   ionViewWillEnter() {
     this.storage.get('fontsize').then((val) => {
-      if(val) {
-        this.fontSize = val;
-      } else {
-        this.fontSize = 'medium';
-      }
+      this.fontSize = val || 'medium';
     });
     this.storage.get('backgroundcolor').then((val) => {
-      if(val) {
-        this.backgroundColor = val;
-      } else {
-        this.backgroundColor = 'defaultverse';
-      }
+      this.backgroundColor = val || 'defaultverse';
     });
     this.storage.get('fontstyle').then((val) => {
-      if(val) {
-        this.fontStyle = val;
-      } else {
-        this.fontStyle = 'roboto';
-      }
+      this.fontStyle = val || 'roboto';
     });
   }
 

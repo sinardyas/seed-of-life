@@ -33,25 +33,13 @@ export class CardDetailPage {
 
   ionViewWillEnter() {
     this.storage.get('fontsize').then((val) => {
-      if(val) {
-        this.fontSize = val;
-      } else {
-        this.fontSize = 'medium';
-      }
+      this.fontSize = val || 'medium';
     });
     this.storage.get('backgroundcolor').then((val) => {
-      if(val) {
-        this.backgroundColor = val;
-      } else {
-        this.backgroundColor = 'defaultverse';
-      }
+      this.backgroundColor = val || 'defaultverse';
     });
     this.storage.get('fontstyle').then((val) => {
-      if(val) {
-        this.fontStyle = val;
-      } else {
-        this.fontStyle = 'roboto';
-      }
+      this.fontStyle = val || 'roboto';
     });
   }
 

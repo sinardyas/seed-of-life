@@ -16,7 +16,7 @@ export class SettingProvider {
   public backgroundColor: any;
   public fontStyle: any;
   public fontSize: any;
-  
+
   constructor(public storage: Storage) {
     this.theme = new BehaviorSubject('');
     this.toggle = new BehaviorSubject(false);
@@ -29,7 +29,6 @@ export class SettingProvider {
     });
     this.storage.get('fontstyle').then((val) => {
       this.fontStyle = val;
-      console.log("fonstyle", val);
     });
   }
 
@@ -38,7 +37,7 @@ export class SettingProvider {
   }
 
   setToggle(val) {
-    this.toggle.next(val);    
+    this.toggle.next(val);
   }
 
   getActiveTheme() {
@@ -46,7 +45,7 @@ export class SettingProvider {
   }
 
   getToggle() {
-    return this.toggle.asObservable();    
+    return this.toggle.asObservable();
   }
 
   setBackground (isAlt: boolean){
@@ -63,7 +62,7 @@ export class SettingProvider {
       case 'purpleverse': return 'purple';
       case 'tanverse': return 'tan';
       case 'greyverse': return 'grey';
-      case 'defaultverse': return 'default'; 
+      case 'defaultverse': return 'default';
     }
   }
 

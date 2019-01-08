@@ -12,7 +12,7 @@ export class ReflectionProvider {
   state;
   month;
   _liked = [];
-  _readed = [];  
+  _readed = [];
 
   constructor(public storage: Storage, public afdb: AngularFireDatabase) {
     this.storage.get('like').then( (data) => {
@@ -25,8 +25,6 @@ export class ReflectionProvider {
   }
 
   getMonth(month) {
-
-    console.log("provider: " + month);
     switch(month) {
       case '01': return 'January';
       case '02': return 'February';
@@ -39,12 +37,12 @@ export class ReflectionProvider {
       case '09': return 'September';
       case '10': return 'October';
       case '11': return 'November';
-      case '12': return 'December'; 
+      case '12': return 'December';
     }
   }
 
   getFavoritedRef() {
-      return this._liked;
+    return this._liked;
   }
 
   getReadedRef() {
@@ -85,7 +83,7 @@ export class ReflectionProvider {
     });
   }
 
-  removeRefFromFavorites(ref) {        
+  removeRefFromFavorites(ref) {
     this.storage.get('like').then( (data) => {
       this.like = data.indexOf(ref);
       data.splice(this.like, 1);
@@ -99,9 +97,9 @@ export class ReflectionProvider {
     this.state = false;
     if(this._liked != null) {
       this._liked.forEach( (data) => {
-        if(data._id == rc._id) this.state = true; 
+        if(data._id == rc._id) this.state = true;
       });
-    } 
+    }
     return this.state;
   }
 
@@ -128,9 +126,9 @@ export class ReflectionProvider {
     this.state = false;
     if(this._readed != null) {
       this._readed.forEach( (data) => {
-        if(data._id == ref._id) this.state = true; 
+        if(data._id == ref._id) this.state = true;
       });
-    } 
+    }
     return this.state;
   }
 

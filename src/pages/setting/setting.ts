@@ -93,45 +93,25 @@ export class SettingPage {
   }
 
   ionViewDidLoad(){
-    console.log(this.toggle)
-
     this.storage.get('fontsize').then((val) => {
-      if(val) {
-        this.fontSize = val;
-      } else {
-        this.fontSize = 2;
-      }
+      this.fontSize = val || 2;
     });
     this.storage.get('backgroundcolor').then((val) => {
-      if(val) {
-        this.backgroundColor = val;
-      } else {
-        this.backgroundColor = 'defaultverse';
-      }
+      this.backgroundColor = val || 'defaultverse';
     });
     this.storage.get('fontstyle').then((val) => {
-      if(val) {
-        this.fontStyle = val;
-      } else {
-        this.fontStyle = 'roboto';
-      }
+      this.fontStyle = val || 'roboto';
     });
     this.storage.get('reminder').then((val) => {
-      if(val) {
-        this.reminder = val;
-      } else {
-        this.reminder = '12:00'
-      }
+      this.reminder = val || '12:00';
     });
   }
 
   toggleAppTheme() {
     if (this.toggle) {
-      console.log('toggled if', this.selectedTheme);
       this.settings.setActiveTheme('dark-theme');
       this.settings.setToggle(true);
     } else {
-      console.log('toggled else');
       this.settings.setActiveTheme('');
       this.settings.setToggle(false);
     }

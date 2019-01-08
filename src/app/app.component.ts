@@ -27,40 +27,17 @@ export class MyApp {
     public localNotification: LocalNotifications,
     public backgroundMode: BackgroundMode
   ) {
-
       this.settings.getActiveTheme().subscribe( val => {
         this.selectedTheme = val;
         val === 'dark-theme' ? this.color = 'theme' : this.color = '';
       });
       this.settings.getToggle().subscribe( val => this.toggle = val );
 
-      // this.storage.get('reminder').then((val) => {
-      //   if(val) {
-      //     console.log("app component " + val);
-      //   } else {
-      //     console.log("zonk");
-
-      //     var date = new Date();
-      //     date.setDate(date.getDate());
-      //     date.setHours(23);
-      //     date.setMinutes(15);
-
-      //     this.localNotification.schedule({
-      //       title: 'Seed of Life',
-      //       text: 'dont forget to take time and read your reflection :)',
-      //       at: date,
-      //       every: 'day'
-      //     });
-      //   }
-      // });
-
       platform.ready().then(() => {
         statusBar.styleDefault();
         splashScreen.hide();
 
         this.backgroundMode.on('activate').subscribe(() => {
-          console.log('activated');
-
           var date = new Date();
           date.setDate(date.getDate());
           date.setHours(23);
@@ -86,9 +63,6 @@ export class MyApp {
         { title: 'Contact Us', icon: 'mail', component: 'ContactUsPage' },
         { title: 'Give', icon: 'ribbon', component: 'GivePage' }
       ];
-
-
-
   }
 
   openPage(page) {

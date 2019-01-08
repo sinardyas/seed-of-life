@@ -16,7 +16,6 @@ import { SettingProvider } from '../../providers/setting/setting';
   templateUrl: 'tabs.html',
 })
 export class TabsPage {
-
   tab1Root = 'NotesPage';
   tab2Root = 'FavoritesPage';
   tab3Root = 'HistoryPage';
@@ -24,7 +23,7 @@ export class TabsPage {
   color: any;
 
   constructor(
-    public navCtrl: NavController, 
+    public navCtrl: NavController,
     public navParams: NavParams,
     private settings: SettingProvider
   ) {

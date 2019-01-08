@@ -24,16 +24,16 @@ export class NotesPage {
   toggle;
 
   constructor(
-    public navCtrl: NavController, 
-    public navParams: NavParams, 
+    public navCtrl: NavController,
+    public navParams: NavParams,
     public settings: SettingProvider
   ) {
     this.rc = this.navParams.data.rc;
-    this.date = moment(this.rc.date).format("MMMM YYYY, DD"); 
+    this.date = moment(this.rc.date).format("MMMM YYYY, DD");
 
     this.settings.getActiveTheme().subscribe( val => {
       this.selectedTheme = val;
-      val === 'dark-theme' ? this.color = 'theme' : this.color = '';
+      this.color = val === 'dark-theme' ? 'theme' : '';
     });
     this.settings.getToggle().subscribe( val => this.toggle = val );
   }
@@ -43,7 +43,7 @@ export class NotesPage {
   }
 
   editNotes() {
-    
+
   }
 
   ionViewDidLoad() {

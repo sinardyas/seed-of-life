@@ -22,26 +22,25 @@
             <ion-icon name="arrow-dropleft"> </ion-icon>
         </button>
         {{ reflectionProvider.getMonth(this.month) }}
-        <button ion-button clear ion-start class="btn-week" item-end (click)="btnNext()"> 
+        <button ion-button clear ion-start class="btn-week" item-end (click)="btnNext()">
             <ion-icon name="arrow-dropright"> </ion-icon>
         </button>
       </ion-row>
     </ion-grid>
   </div>
-  <!-- <h3 *ngIf="allRef.length">No Data Found!</h3> -->
 
   <ion-list>
     <ion-row *ngFor="let rc of allRef">
-      <ion-col col-2>  
+      <ion-col col-2>
         <button class="btn-box"><b>{{ rc.date | dateFormat }}</b></button>
       </ion-col>
-      
+
       <ion-col col-6>
         <button ion-item (click)="openCardDetail(rc)" text-wrap>
             {{ rc.title }}
         </button>
       </ion-col>
-        
+
       <ion-col col-2 >
         <button ion-button class="btn-circle" *ngIf="reflectionProvider.checkRead(rc)">
           <ion-icon name="eye"> </ion-icon>

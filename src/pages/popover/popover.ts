@@ -15,16 +15,15 @@ export class PopoverPage {
   rc;
 
   constructor(
-    public viewController: ViewController, 
+    public viewController: ViewController,
     public navParams: NavParams,
     public reflectionProdiver: ReflectionProvider,
     public clipboard: Clipboard,
     public toastCtrl: ToastController,
     public navCtrl: NavController,
-    public socialSharing: SocialSharing     
+    public socialSharing: SocialSharing
   ) {
     this.rc = navParams.data.rc;
-    console.log(this.rc.title);
   }
 
   like() {
@@ -54,7 +53,6 @@ export class PopoverPage {
 
   openNotesPage(rc) {
     this.navCtrl.push('NotesPage', { rc: rc });
-    console.log('catatan');
   }
 
   share() {

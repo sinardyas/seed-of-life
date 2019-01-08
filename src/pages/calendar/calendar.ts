@@ -11,7 +11,6 @@ import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/databa
   templateUrl: 'calendar.html',
 })
 export class CalendarPage implements OnInit {
-
   reflectionCollection: {id: number, title: string, body: string, date: string}[];
   _liked = [];
   _state: any;
@@ -20,10 +19,10 @@ export class CalendarPage implements OnInit {
   allRef: Reflections[] = [];
   tempAllRef: Reflections[] = [];
   temp: FirebaseListObservable<Reflections[]>;
-  i = 0;
+  monthCounter = 0;
   date = new Date();
 
-  constructor(public navCtrl: NavController, 
+  constructor(public navCtrl: NavController,
     public navParams: NavParams,
     private reflectionProvider: ReflectionProvider,
     private storage: Storage,
@@ -35,16 +34,11 @@ export class CalendarPage implements OnInit {
       this._liked = data;
     });
 
-    //this.date.setMonth(0);
-    this.i = this.date.getMonth()+1;
-    if(this.i < 10) {
-      this.month = '0' + this.i;
-    } else {
-      this.month = this.i.toString();
-    }
+    const monthValue = `${this.date.getMonth() + 1}`;
+    this.month = monthValue.padStart(2, '0')
   }
 
-  ngOnInit() {    
+  ngOnInit() {
     let loading = this.loadingCtrl.create({
       spinner: 'dots'
     });
@@ -71,7 +65,9 @@ export class CalendarPage implements OnInit {
       duration: 2000,
       position: 'bottom'
     });
+
     this.reflectionProvider.addRefToFavorites(rc);
+
     toast.present();
   }
 
@@ -81,22 +77,16 @@ export class CalendarPage implements OnInit {
       duration: 2000,
       position: 'bottom'
     });
+
     this.reflectionProvider.removeRefFromFavorites(rc);
+
     toast.present();
   }
 
   btnNext() {
     this.allRef = [];
-    this.i = this.i + 1;
-
-    if(this.i < 10) {
-      this.month = '0' + this.i;
-    } else if(this.i > 9 && this.i < 13) {
-      this.month = this.i.toString();
-    } else {
-      this.i = 1;
-      this.month = '0' + this.i; 
-    }
+    this.monthCounter = this.monthCounter + 1;
+    this.month = this.monthCounter < 13 ? `${this.monthCounter}`.padStart(2, '0') : '01';
 
     let loading = this.loadingCtrl.create({
       spinner: 'dots'
@@ -116,16 +106,8 @@ export class CalendarPage implements OnInit {
 
   btnPrev() {
     this.allRef = [];
-    this.i = this.i - 1;
-
-    if(this.i < 1) {
-      this.i = 12;
-      this.month = this.i.toString();
-    } else if(this.i < 10 && this.i > 0) {
-      this.month = '0' + this.i;
-    } else {
-      this.month = this.i.toString();
-    }
+    this.monthCounter = this.monthCounter - 1;
+    this.month = this.monthCounter > 1 ? `${this.monthCounter}`.padStart(2, '0') : '12';
 
     let loading = this.loadingCtrl.create({
       spinner: 'dots'
