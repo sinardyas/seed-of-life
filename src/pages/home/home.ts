@@ -21,7 +21,7 @@ export class HomePage implements OnInit {
   reflectionRef$: FirebaseListObservable<Reflections[]>;
   listOfReflectionRef$: FirebaseListObservable<Reflections[]>;
   rc: Reflections[];
-  date = new Date().toISOString().substring(0,10);
+  date = new Date();
   test = new Date();
   temp = new Date();
   day = 0;
@@ -31,7 +31,6 @@ export class HomePage implements OnInit {
   months: string;
   years: string;
   dday: string;
-
 
   constructor(
     public menu: MenuController,
@@ -53,27 +52,28 @@ export class HomePage implements OnInit {
   }
 
   ngOnInit() {
-    let loading = this.loadingCtrl.create({
-        spinner: 'dots'
-      });
+    let loading = this.loadingCtrl.create({ spinner: 'dots' });
     loading.present();
-
-    this.database.list('/reflection', {
-        query: {
-        orderByChild: 'date',
-        equalTo: this.dday,
-        preserveSnapshot: true
+    this.storage.get(`TODAY_REFLECTION:${this.dday}`).then(val => {
+      if (val) {
+        this.rc = val;
+      } else {
+        this.database.list('/reflection', {
+          query: {
+            orderByChild: 'date',
+            equalTo: this.dday,
+            preserveSnapshot: true
+          }
+        }).subscribe(snapshot => {
+            this.rc = snapshot;
+            this.storage.set(`TODAY_REFLECTION:${this.dday}`, snapshot);
+            this.storage.remove(`TODAY_REFLECTION:${this.dday}`);
+          },
+        );
       }
-    }).subscribe(
-      snapshot => {
-        snapshot.forEach( data => {
-          var arr = [];
-          arr.push(data);
-          this.rc = arr;
-        });
-        loading.dismiss();
-      },
-    );
+
+      loading.dismiss();
+    });
   }
 
   ionViewWillEnter() {

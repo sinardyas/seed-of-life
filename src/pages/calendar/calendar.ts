@@ -47,8 +47,9 @@ export class CalendarPage implements OnInit {
     this.temp = this.reflectionProvider.getReflectionByMonth(this.month.toString());
     this.temp.subscribe(
       snapshot => {
-        snapshot.forEach( data => {
+        snapshot.forEach(data => {
           this.allRef.push(new Reflections(data));
+          this.storage.set(`MONTH_LIST_REFLECTION:${this.month}`, this.allRef);
         });
         loading.dismiss();
       }
