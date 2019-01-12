@@ -1,9 +1,3 @@
-<!--
-  Generated template for the SettingPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
   <ion-navbar color="navbar">
     <button ion-button menuToggle>
@@ -13,9 +7,7 @@
   </ion-navbar>
 </ion-header>
 
-
 <ion-content padding>
-
   <ion-item>
     <ion-label>Night Mode</ion-label>
     <ion-toggle [(ngModel)]="toggle" (ionChange)="toggleAppTheme()"></ion-toggle>
@@ -31,7 +23,7 @@
       <ion-label range-right>A</ion-label>
     </ion-range>
   </ion-item>
-  
+
   <ion-item>
     <ion-label>Background Color</ion-label>
     <ion-select [(ngModel)]="backgroundColor">
@@ -45,14 +37,6 @@
       <ion-option *ngFor="let item of style" value="{{ item.value }}">{{ item.label }}</ion-option>
     </ion-select>
   </ion-item>
-
-  
-
-  <!-- <ion-item>
-    <ion-label>Reminder</ion-label>
-    <ion-datetime displayFormat="HH:mm" [(ngModel)]="reminder"></ion-datetime>
-  </ion-item>   -->
-  
 </ion-content>
 
 

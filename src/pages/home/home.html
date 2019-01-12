@@ -6,7 +6,7 @@
     <ion-title>
       Today Seed
     </ion-title>
-    <ion-buttons start *ngIf="rc">
+    <ion-buttons end *ngIf="rc">
       <button ion-button (click)="presentPopover($event, rc)">
         <ion-icon name="more"></ion-icon>
       </button>
@@ -27,7 +27,7 @@
         <br>
       </div>
       <br>
-      <p text-justify padding [ngClass]="settingProvider.setBodyFontSize(fontSize)" [innerHTML]="item.body"> 
+      <p text-justify padding [ngClass]="settingProvider.setBodyFontSize(fontSize)" [innerHTML]="item.body">
       </p>
   </div>
 </ion-content>

@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { ReflectionProvider } from '../../providers/reflection/reflection';
 
 @IonicPage()
 @Component({
@@ -12,9 +11,8 @@ export class FavoritesPage {
   likedRef = [];
 
   constructor(
-    public navCtrl: NavController, 
-    public navParams: NavParams, 
-    private reflectionProvider: ReflectionProvider
+    public navCtrl: NavController,
+    public navParams: NavParams
   ) {}
 
   openCardDetail(rc){

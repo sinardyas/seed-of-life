@@ -58,7 +58,6 @@ export class MyApp {
         { title: 'Home', icon: 'home', component: 'HomePage' },
         { title: 'Calendar', icon: 'calendar', component: 'CalendarPage' },
         { title: 'Likes', icon: 'heart', component: 'FavoritesPage'},
-        // { title: 'Notes', icon: 'create', component: 'NoteslistPage' },
         { title: 'Setting', icon: 'settings', component: 'SettingPage' },
         { title: 'Contact Us', icon: 'mail', component: 'ContactUsPage' },
         { title: 'Give', icon: 'ribbon', component: 'GivePage' }

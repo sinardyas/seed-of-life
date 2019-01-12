@@ -1,7 +1,5 @@
 import { Reflections } from '../data/reflections.interface';
-import { Storage } from '@ionic/Storage';
 import firebase from 'firebase';
-import { storage } from 'firebase';
 
 export class ReflectionServices {
     private favoritesRef: Reflections[] = [];
