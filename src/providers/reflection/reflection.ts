@@ -15,8 +15,8 @@ export class ReflectionProvider {
   readedRef = [];
 
   constructor(public storage: Storage, public afdb: AngularFireDatabase) {
-    this.storage.get('like').then(data => this.likedRef = data);
-    this.storage.get('read').then(data => this.readedRef = data)
+    this.storage.get('LIKED_LIST').then(data => this.likedRef = data);
+    this.storage.get('READED_LIST').then(data => this.readedRef = data)
   }
 
   getMonth(month) {
@@ -56,18 +56,18 @@ export class ReflectionProvider {
   }
 
   addRefToFavorites(ref) {
-    this.storage.get('like').then(data => {
+    this.storage.get('LIKED_LIST').then(data => {
       data ? data = data.concat([ref]) : data = [ref];
-      this.storage.set('like', data).then(res => this.likedRef = res);
+      this.storage.set('LIKED_LIST', data).then(res => this.likedRef = res);
     });
   }
 
   removeRefFromFavorites(ref) {
-    this.storage.get('like').then(data => {
+    this.storage.get('LIKED_LIST').then(data => {
       this.like = data.indexOf(ref);
       data.splice(this.like, 1);
 
-      this.storage.set('like', data).then(res => this.likedRef = res);
+      this.storage.set('LIKED_LIST', data).then(res => this.likedRef = res);
     });
   }
 
@@ -86,17 +86,17 @@ export class ReflectionProvider {
   }
 
   markAsRead(ref) {
-    this.storage.get('read').then(data => {
+    this.storage.get('READED_LIST').then(data => {
       data ? data = data.concat([ref]) : data = [ref];
-      this.storage.set('read', data).then(res => this.readedRef = res);
+      this.storage.set('READED_LIST', data).then(res => this.readedRef = res);
     });
   }
 
   markAsUnread(ref) {
-    this.storage.get('read').then(data => {
+    this.storage.get('READED_LIST').then(data => {
       this.read = data.indexOf(ref);
       data.splice(this.read, 1);
-      this.storage.set('read', data).then(res => this.readedRef = res);
+      this.storage.set('READED_LIST', data).then(res => this.readedRef = res);
     });
   }
 

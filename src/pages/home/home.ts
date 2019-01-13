@@ -15,22 +15,10 @@ export class HomePage implements OnInit {
   fontSize = {}
   backgroundColor = {}
   fontStyle = {}
-  today: string;
-
-  reflections = {} as Reflections;
-  reflectionRef$: FirebaseListObservable<Reflections[]>;
-  listOfReflectionRef$: FirebaseListObservable<Reflections[]>;
   rc: Reflections[];
   date = new Date();
-  test = new Date();
-  temp = new Date();
-  day = 0;
-  month = 0;
-  year = 0;
-  days: string;
-  months: string;
-  years: string;
-  dday: string;
+  fullDate: string;
+  yesterdayDate: string;
 
   constructor(
     public menu: MenuController,
@@ -42,19 +30,19 @@ export class HomePage implements OnInit {
     public loadingCtrl: LoadingController,
     public settingProvider: SettingProvider
   ) {
-    this.temp = new Date();
+    const dayValue = `${this.date.getDate()}`;
+    const yesterdayValue = `${this.date.getDate() - 1}`;
+    const monthValue = `${this.date.getMonth() + 1}`;
+    const yearValue = `${this.date.getFullYear()}`;
 
-    const dayValue = `${this.temp.getDate()}`;
-    const monthValue = `${this.temp.getMonth() + 1}`;
-    const yearValue = `${this.temp.getFullYear()}`;
-
-    this.dday = `${monthValue.padStart(2, '0')}-${dayValue.padStart(2, '0')}-${yearValue.padStart(2, '0')}`;
+    this.fullDate = `${monthValue.padStart(2, '0')}-${dayValue.padStart(2, '0')}-${yearValue.padStart(2, '0')}`;
+    this.yesterdayDate = `${monthValue.padStart(2, '0')}-${yesterdayValue.padStart(2, '0')}-${yearValue.padStart(2, '0')}`;
   }
 
   ngOnInit() {
     let loading = this.loadingCtrl.create({ spinner: 'dots' });
     loading.present();
-    this.storage.get(`TODAY_REFLECTION:${this.dday}`).then(val => {
+    this.storage.get(`TODAY_REFLECTION:${this.fullDate}`).then(val => {
       if (val) {
         this.rc = val;
         loading.dismiss();
@@ -62,14 +50,14 @@ export class HomePage implements OnInit {
         this.database.list('/reflection', {
           query: {
             orderByChild: 'date',
-            equalTo: this.dday,
+            equalTo: this.fullDate,
             preserveSnapshot: true
           }
         }).subscribe(snapshot => {
             this.rc = snapshot;
-            this.storage.set(`TODAY_REFLECTION:${this.dday}`, snapshot);
-            this.storage.remove(`TODAY_REFLECTION:${this.dday}`);
-
+            this.storage.set(`TODAY_REFLECTION:${this.fullDate}`, snapshot).then(() => {
+              this.storage.remove(`TODAY_REFLECTION:${this.yesterdayDate}`)
+            });
             loading.dismiss();
           },
         );

@@ -21,9 +21,9 @@ export class SettingProvider {
     this.theme = new BehaviorSubject('');
     this.toggle = new BehaviorSubject(false);
 
-    this.storage.get('fontsize').then(val => this.fontSize = val);
-    this.storage.get('backgroundcolor').then(val => this.backgroundColor = val);
-    this.storage.get('fontstyle').then(val => this.fontStyle = val);
+    this.storage.get('FONT_SIZE').then(val => this.fontSize = val);
+    this.storage.get('BACKGROUND_COLOR').then(val => this.backgroundColor = val);
+    this.storage.get('FONT_STYLE').then(val => this.fontStyle = val);
   }
 
   setActiveTheme(val) {

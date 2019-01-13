@@ -16,6 +16,7 @@ export class CalendarPage implements OnInit {
   month: any;
   allRef: Reflections[] = [];
   monthCounter = 0;
+  year = 0;
   date = new Date();
 
   constructor(
@@ -29,18 +30,26 @@ export class CalendarPage implements OnInit {
   ) {
     this.monthCounter = this.date.getMonth() + 1;
     this.month = `${this.date.getMonth() + 1}`.padStart(2, '0');
+    this.year = this.date.getFullYear();
   }
 
   ngOnInit() {
     let loading = this.loadingCtrl.create({ spinner: 'dots' });
     loading.present();
 
-    this.reflectionProvider.getReflectionByMonth(this.month).subscribe(snapshot => {
-        snapshot.forEach(data => this.allRef.push(new Reflections(data)));
-        this.storage.set(`MONTH_LIST:${this.month}`, snapshot);
+    this.storage.get(`MONTH_LIST:${this.month}:${this.year}`).then(data => {
+      if (data) {
+        data.forEach(ref => this.allRef.push(new Reflections(ref)));
         loading.dismiss();
+      } else {
+        this.reflectionProvider.getReflectionByMonth(this.month).subscribe(snapshot => {
+          snapshot.forEach(val => this.allRef.push(new Reflections(val)));
+          this.storage.set(`MONTH_LIST:${this.month}:${this.year}`, snapshot);
+          loading.dismiss();
+        }
+      );
       }
-    );
+    })
   }
 
   openCardDetail(rc) {
@@ -78,7 +87,7 @@ export class CalendarPage implements OnInit {
     let loading = this.loadingCtrl.create({ spinner: 'dots' });
     loading.present();
 
-    this.storage.get(`MONTH_LIST:${this.month}`).then(data => {
+    this.storage.get(`MONTH_LIST:${this.month}:${this.year}`).then(data => {
       if (data) {
         data.forEach(ref => this.allRef.push(new Reflections(ref)));
         loading.dismiss();
@@ -101,14 +110,13 @@ export class CalendarPage implements OnInit {
     let loading = this.loadingCtrl.create({ spinner: 'dots' });
     loading.present();
 
-    this.storage.get(`MONTH_LIST:${this.month}`).then(data => {
+    this.storage.get(`MONTH_LIST:${this.month}:${this.year}`).then(data => {
       if (data) {
         data.forEach(ref => this.allRef.push(new Reflections(ref)));
         loading.dismiss();
       } else {
         this.reflectionProvider.getReflectionByMonth(this.month).subscribe(snapshot => {
             snapshot.forEach(val => this.allRef.push(new Reflections(val)));
-            this.storage.set(`MONTH_LIST:${this.month}`, snapshot);
             loading.dismiss();
           }
         );
