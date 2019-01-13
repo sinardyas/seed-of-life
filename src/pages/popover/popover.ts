@@ -11,7 +11,6 @@ import { SocialSharing } from '@ionic-native/social-sharing';
   templateUrl: 'popover.html'
 })
 export class PopoverPage {
-
   rc;
 
   constructor(
@@ -52,15 +51,11 @@ export class PopoverPage {
   }
 
   openNotesPage(rc) {
-    this.navCtrl.push('NotesPage', { rc: rc });
+    this.navCtrl.push('NotesPage', { rc });
   }
 
   share() {
-    this.socialSharing.share(this.rc.title + '\n\n' + this.rc.body.replace(/<\/?[^>]+>/gi, "")).then(() => {
-      console.log("share success!");
-    }).catch(() => {
-      console.log("failed!");
-    });
+    this.socialSharing.share(this.rc.title + '\n\n' + this.rc.body.replace(/<\/?[^>]+>/gi, ""));
   }
 
 }

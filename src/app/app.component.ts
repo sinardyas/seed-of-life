@@ -27,11 +27,11 @@ export class MyApp {
     public localNotification: LocalNotifications,
     public backgroundMode: BackgroundMode
   ) {
-      this.settings.getActiveTheme().subscribe( val => {
+      this.settings.getActiveTheme().subscribe(val => {
         this.selectedTheme = val;
-        val === 'dark-theme' ? this.color = 'theme' : this.color = '';
+        this.color = val === 'dark-theme' ? 'theme' : '';
       });
-      this.settings.getToggle().subscribe( val => this.toggle = val );
+      this.settings.getToggle().subscribe(val => this.toggle = val );
 
       platform.ready().then(() => {
         statusBar.styleDefault();

@@ -12,7 +12,6 @@ import * as moment from 'moment';
 })
 export class CardDetailPage {
   rc;
-  tabBarElement;
   date;
 
   fontSize = {}
@@ -32,21 +31,13 @@ export class CardDetailPage {
   }
 
   ionViewWillEnter() {
-    this.storage.get('fontsize').then((val) => {
-      this.fontSize = val || 'medium';
-    });
-    this.storage.get('backgroundcolor').then((val) => {
-      this.backgroundColor = val || 'defaultverse';
-    });
-    this.storage.get('fontstyle').then((val) => {
-      this.fontStyle = val || 'roboto';
-    });
+    this.storage.get('FONT_SIZE').then(val => this.fontSize = val || 'medium');
+    this.storage.get('BACKGROUND_COLOR').then(val => this.backgroundColor = val || 'defaultverse');
+    this.storage.get('FONT_STYLE').then(val => this.fontStyle = val || 'roboto');
   }
 
-  presentPopover(myEvent) {
+  presentPopover(ev) {
     let popover = this.popoverController.create('PopoverPage', { rc: this.rc });
-    popover.present({
-      ev: myEvent
-    });
+    popover.present({ ev });
   }
 }

@@ -9,10 +9,7 @@ import 'rxjs/add/operator/map';
 */
 @Injectable()
 export class ThemeProvider {
-
-  constructor() {
-    console.log('Hello ThemeProvider Provider');
-  }
+  constructor() {}
 
   setMainBgColor(backgroundColor) {
     switch(backgroundColor) {
@@ -20,7 +17,7 @@ export class ThemeProvider {
       case 'purpleverse': return 'purple';
       case 'tanverse': return 'tan';
       case 'greyverse': return 'grey';
-      case 'defaultverse': return 'default'; 
+      case 'defaultverse': return 'default';
     }
   }
 

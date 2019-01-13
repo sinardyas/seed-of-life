@@ -12,17 +12,14 @@ import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/databa
 })
 export class CalendarPage implements OnInit {
   reflectionCollection: {id: number, title: string, body: string, date: string}[];
-  _liked = [];
-  _state: any;
   ref: any;
   month: any;
   allRef: Reflections[] = [];
-  tempAllRef: Reflections[] = [];
-  temp: FirebaseListObservable<Reflections[]>;
   monthCounter = 0;
   date = new Date();
 
-  constructor(public navCtrl: NavController,
+  constructor(
+    public navCtrl: NavController,
     public navParams: NavParams,
     private reflectionProvider: ReflectionProvider,
     private storage: Storage,
@@ -30,27 +27,17 @@ export class CalendarPage implements OnInit {
     public toastCtrl: ToastController,
     public database: AngularFireDatabase
   ) {
-    this.storage.get('likedRef').then( (data) => {
-      this._liked = data;
-    });
-
-    const monthValue = `${this.date.getMonth() + 1}`;
-    this.month = monthValue.padStart(2, '0')
+    this.monthCounter = this.date.getMonth() + 1;
+    this.month = `${this.date.getMonth() + 1}`.padStart(2, '0');
   }
 
   ngOnInit() {
-    let loading = this.loadingCtrl.create({
-      spinner: 'dots'
-    });
+    let loading = this.loadingCtrl.create({ spinner: 'dots' });
     loading.present();
 
-    this.temp = this.reflectionProvider.getReflectionByMonth(this.month.toString());
-    this.temp.subscribe(
-      snapshot => {
-        snapshot.forEach(data => {
-          this.allRef.push(new Reflections(data));
-          this.storage.set(`MONTH_LIST_REFLECTION:${this.month}`, this.allRef);
-        });
+    this.reflectionProvider.getReflectionByMonth(this.month).subscribe(snapshot => {
+        snapshot.forEach(data => this.allRef.push(new Reflections(data)));
+        this.storage.set(`MONTH_LIST:${this.month}`, snapshot);
         loading.dismiss();
       }
     );
@@ -68,7 +55,6 @@ export class CalendarPage implements OnInit {
     });
 
     this.reflectionProvider.addRefToFavorites(rc);
-
     toast.present();
   }
 
@@ -80,49 +66,53 @@ export class CalendarPage implements OnInit {
     });
 
     this.reflectionProvider.removeRefFromFavorites(rc);
-
     toast.present();
   }
 
   btnNext() {
     this.allRef = [];
     this.monthCounter = this.monthCounter + 1;
-    this.month = this.monthCounter < 13 ? `${this.monthCounter}`.padStart(2, '0') : '01';
+    this.monthCounter = this.monthCounter > 12 ? 1 : this.monthCounter;
+    this.month = `${this.monthCounter}`.padStart(2, '0');
 
-    let loading = this.loadingCtrl.create({
-      spinner: 'dots'
-    });
+    let loading = this.loadingCtrl.create({ spinner: 'dots' });
     loading.present();
 
-    this.temp = this.reflectionProvider.getReflectionByMonth(this.month);
-    this.temp.subscribe(
-      snapshot => {
-        snapshot.forEach( data => {
-          this.allRef.push(new Reflections(data));
-        });
+    this.storage.get(`MONTH_LIST:${this.month}`).then(data => {
+      if (data) {
+        data.forEach(ref => this.allRef.push(new Reflections(ref)));
         loading.dismiss();
+      } else {
+        this.reflectionProvider.getReflectionByMonth(this.month).subscribe(snapshot => {
+            snapshot.forEach(val => this.allRef.push(new Reflections(val)));
+            loading.dismiss();
+          }
+        );
       }
-    );
+    });
   }
 
   btnPrev() {
     this.allRef = [];
     this.monthCounter = this.monthCounter - 1;
-    this.month = this.monthCounter > 1 ? `${this.monthCounter}`.padStart(2, '0') : '12';
+    this.monthCounter = this.monthCounter < 1 ? 12 : this.monthCounter;
+    this.month = `${this.monthCounter}`.padStart(2, '0');
 
-    let loading = this.loadingCtrl.create({
-      spinner: 'dots'
-    });
+    let loading = this.loadingCtrl.create({ spinner: 'dots' });
     loading.present();
 
-    this.temp = this.reflectionProvider.getReflectionByMonth(this.month);
-    this.temp.subscribe(
-      snapshot => {
-        snapshot.forEach( data => {
-          this.allRef.push(new Reflections(data));
-        });
+    this.storage.get(`MONTH_LIST:${this.month}`).then(data => {
+      if (data) {
+        data.forEach(ref => this.allRef.push(new Reflections(ref)));
         loading.dismiss();
+      } else {
+        this.reflectionProvider.getReflectionByMonth(this.month).subscribe(snapshot => {
+            snapshot.forEach(val => this.allRef.push(new Reflections(val)));
+            this.storage.set(`MONTH_LIST:${this.month}`, snapshot);
+            loading.dismiss();
+          }
+        );
       }
-    );
+    });
   }
 }

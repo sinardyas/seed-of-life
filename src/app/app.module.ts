@@ -12,7 +12,6 @@ import { MyApp } from './app.component';
 import { FIREBASE_CREDENTIALS } from './firebase.credential';
 import { SettingProvider } from '../providers/setting/setting';
 import { ReflectionProvider } from '../providers/reflection/reflection';
-import { NoteProvider } from '../providers/note/note';
 import { LocalNotifications } from '@ionic-native/local-notifications';
 import { BackgroundMode } from '@ionic-native/background-mode';
 
@@ -23,7 +22,7 @@ import { BackgroundMode } from '@ionic-native/background-mode';
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp,{
-      menuType: 'push', 
+      menuType: 'push',
       tabsHideOnSubPages: true
     }),
     IonicStorageModule.forRoot(),
@@ -41,7 +40,6 @@ import { BackgroundMode } from '@ionic-native/background-mode';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     SettingProvider,
     ReflectionProvider,
-    NoteProvider,
     SocialSharing,
     LocalNotifications,
     BackgroundMode

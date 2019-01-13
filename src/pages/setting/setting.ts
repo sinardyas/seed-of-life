@@ -32,7 +32,7 @@ export class SettingPage {
     public localNotification: LocalNotifications
   ) {
     this.settings.getActiveTheme().subscribe(val => this.selectedTheme = val);
-    this.settings.getToggle().subscribe( val => this.toggle = val);
+    this.settings.getToggle().subscribe(val => this.toggle = val);
 
     this.color = [{
       value: 'whiteverse',
@@ -74,9 +74,9 @@ export class SettingPage {
   }
 
   ionViewCanLeave(){
-    this.storage.set('fontsize', this.fontSize);
-    this.storage.set('fontstyle', this.fontStyle);
-    this.storage.set('backgroundcolor', this.backgroundColor);
+    this.storage.set('FONT_SIZE', this.fontSize);
+    this.storage.set('FONT_STYLE', this.fontStyle);
+    this.storage.set('BACKGROUND_COLOR', this.backgroundColor);
     this.storage.set('reminder', this.reminder);
 
     var date = new Date();
@@ -93,28 +93,17 @@ export class SettingPage {
   }
 
   ionViewDidLoad(){
-    this.storage.get('fontsize').then((val) => {
-      this.fontSize = val || 2;
-    });
-    this.storage.get('backgroundcolor').then((val) => {
-      this.backgroundColor = val || 'defaultverse';
-    });
-    this.storage.get('fontstyle').then((val) => {
-      this.fontStyle = val || 'roboto';
-    });
-    this.storage.get('reminder').then((val) => {
-      this.reminder = val || '12:00';
-    });
+    this.storage.get('FONT_SIZE').then(val => this.fontSize = val || 2);
+    this.storage.get('BACKGROUND_COLOR').then(val => this.backgroundColor = val || 'defaultverse');
+    this.storage.get('FONT_STYLE').then(val => this.fontStyle = val || 'roboto');
+    this.storage.get('reminder').then(val => this.reminder = val || '12:00');
   }
 
   toggleAppTheme() {
-    if (this.toggle) {
-      this.settings.setActiveTheme('dark-theme');
-      this.settings.setToggle(true);
-    } else {
-      this.settings.setActiveTheme('');
-      this.settings.setToggle(false);
-    }
+    let activeThemeValue = this.toggle ? 'dark-theme' : '';
+    let toggelSetValue = this.toggle ? true : false;
+    this.settings.setActiveTheme(activeThemeValue);
+    this.settings.setToggle(toggelSetValue);
   }
 }
 

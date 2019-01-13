@@ -11,17 +11,12 @@ export class ReflectionProvider {
   read;
   state;
   month;
-  _liked = [];
-  _readed = [];
+  likedRef = [];
+  readedRef = [];
 
   constructor(public storage: Storage, public afdb: AngularFireDatabase) {
-    this.storage.get('like').then( (data) => {
-      this._liked = data;
-    });
-
-    this.storage.get('read').then( (data) => {
-      this._readed = data;
-    })
+    this.storage.get('like').then(data => this.likedRef = data);
+    this.storage.get('read').then(data => this.readedRef = data)
   }
 
   getMonth(month) {
@@ -42,91 +37,76 @@ export class ReflectionProvider {
   }
 
   getFavoritedRef() {
-    return this._liked;
+    return this.likedRef;
   }
 
   getReadedRef() {
-    return this._readed;
-  }
-
-  getAllReflection() {
-    return this.afdb.list('/reflection', { preserveSnapshot: true });
+    return this.readedRef;
   }
 
   getReflectionByMonth(month) {
     return this.afdb.list('/reflection', {
       query: {
-      orderByChild: 'date',
-      startAt: month,
-      endAt: month + '\uf8ff',
-      preserveSnapshot: true
-    }
+        orderByChild: 'date',
+        startAt: month,
+        endAt: month + '\uf8ff',
+        preserveSnapshot: true
+      }
     });
-  }
-
-  getFavFromStorage(){
-    this.storage.get('likedRef').then( (data) => {
-      this._liked = data;
-    });
-  }
-
-  isFavorited(ref){
-      return this.favoritesRef.findIndex( refs => refs == ref );
   }
 
   addRefToFavorites(ref) {
-    this.storage.get('like').then( (data) => {
+    this.storage.get('like').then(data => {
       data ? data = data.concat([ref]) : data = [ref];
-      this.storage.set('like', data).then( (res) => {
-        this._liked = res;
-      });
+      this.storage.set('like', data).then(res => this.likedRef = res);
     });
   }
 
   removeRefFromFavorites(ref) {
-    this.storage.get('like').then( (data) => {
+    this.storage.get('like').then(data => {
       this.like = data.indexOf(ref);
       data.splice(this.like, 1);
-      this.storage.set('like', data).then( (res) => {
-        this._liked = res;
-      });
+
+      this.storage.set('like', data).then(res => this.likedRef = res);
     });
   }
 
   checkFav(rc) {
     this.state = false;
-    if(this._liked != null) {
-      this._liked.forEach( (data) => {
-        if(data._id == rc._id) this.state = true;
+
+    if(this.likedRef) {
+      this.likedRef.forEach(data => {
+        if(data._id == rc._id) {
+          this.state = true;
+        }
       });
     }
+
     return this.state;
   }
 
   markAsRead(ref) {
-    this.storage.get('read').then( (data) => {
+    this.storage.get('read').then(data => {
       data ? data = data.concat([ref]) : data = [ref];
-      this.storage.set('read', data).then( (res) => {
-        this._readed = res;
-      });
+      this.storage.set('read', data).then(res => this.readedRef = res);
     });
   }
 
   markAsUnread(ref) {
-    this.storage.get('read').then( (data) => {
+    this.storage.get('read').then(data => {
       this.read = data.indexOf(ref);
       data.splice(this.read, 1);
-      this.storage.set('read', data).then( (res) => {
-        this._readed = res;
-      });
+      this.storage.set('read', data).then(res => this.readedRef = res);
     });
   }
 
   checkRead(ref) {
     this.state = false;
-    if(this._readed != null) {
-      this._readed.forEach( (data) => {
-        if(data._id == ref._id) this.state = true;
+    if(this.readedRef) {
+      this.readedRef.forEach(data => {
+        if(data._id == ref._id) {
+          this.state = true
+        }
       });
     }
     return this.state;

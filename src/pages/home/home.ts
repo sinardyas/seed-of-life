@@ -57,6 +57,7 @@ export class HomePage implements OnInit {
     this.storage.get(`TODAY_REFLECTION:${this.dday}`).then(val => {
       if (val) {
         this.rc = val;
+        loading.dismiss();
       } else {
         this.database.list('/reflection', {
           query: {
@@ -68,31 +69,23 @@ export class HomePage implements OnInit {
             this.rc = snapshot;
             this.storage.set(`TODAY_REFLECTION:${this.dday}`, snapshot);
             this.storage.remove(`TODAY_REFLECTION:${this.dday}`);
+
+            loading.dismiss();
           },
         );
       }
-
-      loading.dismiss();
     });
   }
 
   ionViewWillEnter() {
-    this.storage.get('fontsize').then((val) => {
-      this.fontSize = val || 'medium';
-    });
-    this.storage.get('backgroundcolor').then((val) => {
-      this.backgroundColor = val || 'defaultverse';
-    });
-    this.storage.get('fontstyle').then((val) => {
-      this.fontStyle = val || 'roboto';
-    });
+    this.storage.get('FONT_SIZE').then(val => this.fontSize = val || 'medium');
+    this.storage.get('BACKGROUND_COLOR').then(val => this.backgroundColor = val || 'defaultverse');
+    this.storage.get('FONT_STYLE').then(val => this.fontStyle = val || 'roboto');
   }
 
-  presentPopover(myEvent, rc) {
+  presentPopover(ev, rc) {
     let popover = this.popoverController.create('PopoverPage', { rc: rc[0] });
-    popover.present({
-      ev: myEvent
-    });
+    popover.present({ ev });
   }
 
 }

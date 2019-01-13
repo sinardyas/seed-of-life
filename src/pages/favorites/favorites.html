@@ -10,7 +10,7 @@
 
 <ion-content padding>
   <ion-list>
-    <ion-item-sliding *ngFor="let rc of reflectionProvider._liked">
+    <ion-item-sliding *ngFor="let rc of reflectionProvider.likedRef">
       <button ion-item (click)="openCardDetail(rc)">
           <span class="btn-box" item-start><b>{{ rc.date | dateFormat }}</b></span>
           {{ rc.title }}
