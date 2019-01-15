@@ -38,15 +38,14 @@ export class MyApp {
         splashScreen.hide();
 
         this.backgroundMode.on('activate').subscribe(() => {
-          var date = new Date();
-          date.setDate(date.getDate());
-          date.setHours(23);
-          date.setMinutes(25);
+          let date = new Date();
+          date.setHours(11);
+          date.setMinutes(59);
 
           this.localNotification.schedule({
             title: 'Seed of Life',
             text: 'dont forget to take time and read your reflection :)',
-            trigger: { at: date },
+            at: date,
             every: 'day'
           });
         });

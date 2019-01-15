@@ -78,18 +78,6 @@ export class SettingPage {
     this.storage.set('FONT_STYLE', this.fontStyle);
     this.storage.set('BACKGROUND_COLOR', this.backgroundColor);
     this.storage.set('reminder', this.reminder);
-
-    var date = new Date();
-    date.setDate(date.getDate());
-    date.setHours(12);
-    date.setMinutes(15);
-
-    this.localNotification.schedule({
-      title: 'Seed of Life',
-      text: 'dont forget to take time and read your reflection :)',
-      trigger: { at: date },
-      every: 'day'
-    });
   }
 
   ionViewDidLoad(){
